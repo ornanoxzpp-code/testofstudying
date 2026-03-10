@@ -1,0 +1,154 @@
+/* --- 1. พื้นฐานและธีม (คงเดิมแต่ปรับ Font) --- */
+body {
+    font-family: 'Sukhumvit Set', 'Tahoma', sans-serif;
+    background-color: #f0f4f7;
+    color: #333;
+    margin: 0;
+    padding: 0;
+}
+
+header {
+    background-color: #2e7d32;
+    color: white;
+    padding: 20px;
+    text-align: center;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+/* --- 2. การจัดวางห้องเรียน --- */
+.study-room-layout {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 40px 20px;
+}
+
+.chalkboard {
+    width: 90%;
+    max-width: 800px;
+    background-color: #004d40;
+    color: #ccff90;
+    border: 15px solid #795548;
+    padding: 20px;
+    margin-bottom: 50px;
+    text-align: center;
+    box-shadow: 5px 5px 15px rgba(0, 0, 0, 0.3);
+    border-radius: 5px;
+}
+
+#desk-container {
+    display: flex; 
+    justify-content: center;
+    gap: 40px; /* ระยะห่างทางเดินกลาง */
+    padding: 30px;
+    background-color: #ffffff;
+    border-radius: 20px;
+    box-shadow: inset 0 0 10px rgba(0,0,0,0.05);
+}
+
+.desk-column {
+    display: flex;
+    flex-direction: column;
+    gap: 50px; /* เว้นระยะระหว่างโต๊ะหน้า-หลัง */
+}
+
+/* --- 3. โต๊ะเสมือนจริง (Virtual Desk UI) --- */
+.desk {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 220px; /* ขยายให้กว้างพอสำหรับ 3 ที่นั่ง */
+    position: relative;
+}
+
+/* ตัวท็อปโต๊ะ (แผ่นไม้) */
+.desk::before {
+    content: "";
+    width: 100%;
+    height: 60px;
+    background: linear-gradient(145deg, #a1887f, #8d6e63);
+    border: 4px solid #5d4037;
+    border-radius: 8px;
+    box-shadow: 0 6px 10px rgba(0,0,0,0.2);
+    z-index: 2;
+}
+
+/* กลุ่มที่นั่ง (วางไว้เหนือโต๊ะ) */
+.seat-group {
+    display: flex;
+    gap: 12px;
+    position: absolute;
+    top: -35px; /* ดันเก้าอี้ขึ้นไปข้างบนโต๊ะ */
+    z-index: 1;
+}
+
+.desk-label {
+    margin-top: 10px;
+    font-weight: bold;
+    color: #5d4037;
+    background: #e0e0e0;
+    padding: 2px 10px;
+    border-radius: 10px;
+    font-size: 14px;
+}
+
+/* --- 4. ที่นั่ง (Seat UI) พร้อมรหัส A1, A2, A3 --- */
+.seat {
+    width: 45px;
+    height: 45px;
+    background-color: #ffffff;
+    border: 3px solid #4CAF50; /* ขอบเขียว = ว่าง */
+    border-radius: 8px; /* ทรงสี่เหลี่ยมโค้งเหมือนพนักพิง */
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: bold;
+    font-size: 14px;
+    color: #4CAF50;
+    transition: all 0.2s ease;
+    box-shadow: 0 4px 0 #388E3C; /* ทำให้ดูมีมิติเหมือนเก้าอี้ */
+}
+
+/* เอฟเฟกต์เมื่อเอาเมาส์วางที่นั่งว่าง */
+.seat[data-status="available"]:hover {
+    transform: translateY(-3px);
+    background-color: #e8f5e9;
+    box-shadow: 0 6px 0 #388E3C;
+}
+
+/* --- 5. สถานะจองแล้ว (Booked) --- */
+/* บล็อกการคลิก + เปลี่ยนเป็นสีแดง */
+.seat[data-status="booked"] {
+    background-color: #ef5350 !important;
+    border-color: #c62828 !important;
+    color: #ffffff !important;
+    box-shadow: 0 4px 0 #b71c1c !important;
+    cursor: not-allowed;
+    pointer-events: none; /* กดไม่ได้แน่นอน */
+}
+
+/* --- 6. Modal และส่วนอื่นๆ (คงเดิม) --- */
+.modal {
+    display: none;
+    position: fixed;
+    z-index: 100;
+    left: 0; top: 0; width: 100%; height: 100%;
+    background-color: rgba(0, 0, 0, 0.6);
+    backdrop-filter: blur(4px);
+}
+
+.modal-content {
+    background-color: #ffffff;
+    margin: 10% auto;
+    padding: 30px;
+    border-radius: 12px;
+    max-width: 450px;
+    position: relative;
+    animation: slideDown 0.4s ease-out;
+}
+
+@keyframes slideDown {
+    from { transform: translateY(-50px); opacity: 0; }
+    to { transform: translateY(0); opacity: 1; }
+}
