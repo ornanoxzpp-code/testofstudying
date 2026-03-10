@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ระบบจองที่นั่งห้องเรียนพิเศษ (เลือกชั้นเรียน)</title>
+    <style>
+        body {
+            font-family: 'Tahoma', sans-serif;
+            background-color: #f0f4f7;
+            text-align: center;
+            padding-top: 50px;
+        }
+        .container {
+            max-width: 600px;
+            margin: auto;
+            padding: 40px;
+            background: white;
+            border-radius: 10px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+        }
+        h1 {
+            color: #2e7d32;
+            margin-bottom: 30px;
+        }
+        .class-selection a {
+            display: block;
+            width: 80%;
+            margin: 20px auto;
+            padding: 15px;
+            font-size: 1.2em;
+            text-decoration: none;
+            color: white;
+            background-color: #4CAF50;
+            border-radius: 8px;
+            transition: background-color 0.3s, transform 0.2s;
+            font-weight: bold;
+        }
+        .class-selection a:hover {
+            background-color: #45a049;
+            transform: scale(1.03);
+        }
+
+        /* --- Global Modal Styles --- */
+        .modal {
+            display: none; 
+            position: fixed; 
+            z-index: 1000; 
+            left: 0;
+            top: 0;
+            width: 100%; 
+            height: 100%; 
+            overflow: auto; 
+            background-color: rgba(0,0,0,0.7); 
+        }
+        .modal-content {
+            background-color: #fefefe;
+            margin: 10% auto; 
+            padding: 30px;
+            border: 1px solid #888;
+            width: 80%; 
+            max-width: 500px;
+            border-radius: 10px;
+            position: relative;
+            text-align: left;
+        }
+        .close-button {
+            color: #aaa;
+            float: right;
+            font-size: 28px;
+            font-weight: bold;
+        }
+        .close-button:hover,
+        .close-button:focus {
+            color: #000;
+            text-decoration: none;
+            cursor: pointer;
+        }
+        .detail-list {
+            list-style-type: none;
+            padding-left: 0;
+            margin-bottom: 20px;
+        }
+        .detail-list li {
+            padding: 5px 0;
+            border-bottom: 1px dotted #eee;
+        }
+        .detail-list strong {
+            color: #2e7d32;
+        }
+
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>กรุณาเลือกห้องเรียนที่ต้องการจองที่นั่ง</h1>
+        <div class="class-selection">
+            
+            <a href="m1-index.html">📚 จองที่นั่งห้องเรียน ม.1                      รอบวัน พฤหัส 17.00-18.00 (3,000 บาท)</a>
+            
+            <a href="m2-index.html">✏️ จองที่นั่งห้องเรียน ม.2                      รอบวัน จันทร์ 17.00-18.00 (3,000 บาท)</a>
+
+            <a href="m3-index.html">🧠 จองที่นั่งห้องเรียน ม.3 เสริมเกรด              รอบวัน เสาร์ 13.00-14.30 (3,500 บาท) </a>
+
+            <a href="m4-index.html">📖 จองที่นั่งห้องเรียน ม.3 ติวสอบเข้าม.4 ห้องเรียนพิเศษ รอบวัน อังคาร 17.00-18.00 (3,500 บาท)</a>
+        </div>
+    </div>
+
+    <div id="info-modal" class="modal">
+        <div class="modal-content">
+            <span class="close-button" id="close-info-modal">&times;</span>
+            <h2>📢 รายละเอียดและขั้นตอนการสมัครเรียน</h2>
+            
+            <h3>ขั้นตอนการสมัครเรียน</h3>
+            <ol>
+                <li>เลือกรอบเรียน</li>
+                <li>จองที่นั่งในระบบ</li>
+                <li>ชำระค่าเรียน</li>
+                <li>กรอกข้อมูลนักเรียน</li>
+                <li>**ส่งหลักฐานการชำระเงินมาที่ไลน์ส่วนตัวของคุณครู** (เพื่อยืนยันการจอง)</li>
+            </ol>
+            
+            <hr>
+
+            <h3>รายละเอียดเพิ่มเติม (ค่าคอร์สเรียน)</h3>
+            <ul class="detail-list">
+                <li><strong>ม.1 - ม.2:</strong> 3,000 บาท/เทอม</li>
+                <li><strong>ม.3 (เสริมเกรด & ติวสอบเข้า):</strong> 3,500 บาท/เทอม</li>
+            </ul>
+        </div>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const infoModal = document.getElementById('info-modal');
+            const closeButton = document.getElementById('close-info-modal');
+
+            // เปิด Modal ทันทีที่โหลดหน้า
+            infoModal.style.display = 'block';
+
+            // ปิด Modal เมื่อคลิกที่กากบาท
+            closeButton.addEventListener('click', () => {
+                infoModal.style.display = 'none';
+            });
+
+            // ปิด Modal เมื่อคลิกนอก Modal
+            window.addEventListener('click', (event) => {
+                if (event.target === infoModal) {
+                    infoModal.style.display = 'none';
+                }
+            });
+        });
+    </script>
+</body>
+</html>
